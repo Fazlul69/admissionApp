@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <head>
-    <title>Hi</title>
+    <title>Form</title>
     <style>
     @page{
         size: 1000px 1200px; margin:0!important; padding:0!important
@@ -109,10 +109,10 @@
             </tr>
             <tr>
                 <td style = "text-align:left;">
-                    বর্তমান ঠিকানা:  {{$input['present_address']}}/{{$input['pr_address_thana']}}/{{$input['pr_address_subdist']}}/{{$input['pr_address_dist']}}
+                    বর্তমান ঠিকানা:  {{$input['present_address']}}-{{$input['pr_address_thana']}}-{{$input['pr_address_subdist']}}-{{$input['pr_address_dist']}}
                 </td>
                 
-                <td >স্থায়ী ঠিকানা: {{$input['permnanent_address']}}/{{$input['perm_address_thana']}}/{{$input['perm_address_subdist']}}/{{$input['perm_address_dist']}}</td>
+                <td >স্থায়ী ঠিকানা: {{$input['permnanent_address']}}-{{$input['perm_address_thana']}}-{{$input['perm_address_subdist']}}-{{$input['perm_address_dist']}}</td>
                 
             </tr>
             <br/>

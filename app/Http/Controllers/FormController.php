@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\FormInfo;
+use App\Models\Category;
 use PDF;
 
 class FormController extends Controller
@@ -15,7 +16,8 @@ class FormController extends Controller
      */
     public function index()
     {
-        return view('admission-form');
+        $categories = Category::all();
+        return view('admission-form', compact('categories'));
     }
 
     /**
@@ -36,7 +38,7 @@ class FormController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request,[
+        $validated = $request->validate([
             'name_bangla' => 'required',
             'name_english' => 'required',
             'mobile_no' => 'required',
@@ -44,8 +46,8 @@ class FormController extends Controller
             'f_name_english' => 'required',
             'f_nid_no' => 'required',
             'f_prof' => 'required',
-            'f_annual_income' => 'required',
-            'f_workplace' => 'required',
+            'f_annual_income' => 'nullable',
+            'f_workplace' => 'nullable',
             'm_name_bangla' => 'required',
             'm_name_english' => 'required',
             'm_nid_no' => 'required',
@@ -67,9 +69,9 @@ class FormController extends Controller
             'photo' =>'required',
             'birth_certificate' =>'required',
             'father_nid' =>'required',
-            'mother_nid' =>'required'|'nullable',
-
+            'mother_nid' => 'nullable'
         ]);
+        
         $input = $request->all();
         
         if($request->hasFile('photo')){

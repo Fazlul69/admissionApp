@@ -23,7 +23,7 @@
     <style>
         
         body{
-    background: url(../images/bg_main.gif) repeat-y scroll center top rgba(0, 0, 0, 0);
+            background: url(../images/bg_main.gif) repeat-y scroll center top rgba(0, 0, 0, 0);
         }
 
         .text-sm.text-gray-700.dark\:text-gray-500.underline {
@@ -106,18 +106,18 @@
         $(function(){
             $("#mySelectBox").change(function(){
                 var value =  $(this).children("option:selected").val();
-                if(value =="first")
+                if(value =="2")
                 {
                     $("#register_table").css({"display":"block"});
                     $("#register_table_2").css({"display":"none"});
                     $("#register_table_3").css({"display":"none"});
                 }
-                else if(value =="second"){
+                else if(value =="3"){
                     $("#register_table_2").css({"display":"block"});
                     $("#register_table").css({"display":"none"});
                     $("#register_table_3").css({"display":"none"});
                 }
-                else if(value =="third"){
+                else if(value =="4"){
                     $("#register_table_3").css({"display":"block"});
                     $("#register_table_2").css({"display":"none"});
                     $("#register_table").css({"display":"none"});

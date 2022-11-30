@@ -26,7 +26,7 @@ return new class extends Migration
             $table->string('m_nid_no');
             $table->string('f_prof');
             $table->string('f_annual_income')->nullable();
-            $table->string('f_workplace');
+            $table->string('f_workplace')->nullable();
             $table->string('m_prof');
             $table->string('m_annual_income')->nullable();
             $table->string('m_workplace')->nullable();
