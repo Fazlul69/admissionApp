@@ -51,13 +51,13 @@ class FormController extends Controller
             'm_name_bangla' => 'required',
             'm_name_english' => 'required',
             'm_nid_no' => 'required',
-            'm_prof' => 'required',
-            'm_annual_income' =>'required',
+            'm_prof' => 'nullable',
+            'm_annual_income' =>'nullable',
             'birth_date' =>'required',
             'birth_cert_no' =>'required',
             'religion' => 'nullable',
             'nationality' => 'required',
-            'blood_group' =>'required',
+            'blood_group' =>'nullable',
             'present_address' => 'required',
             'pr_address_thana' =>'required', 
             'pr_address_subdist'=>'required',
@@ -69,7 +69,8 @@ class FormController extends Controller
             'photo' =>'required',
             'birth_certificate' =>'required',
             'father_nid' =>'required',
-            'mother_nid' => 'nullable'
+            'mother_nid' => 'nullable',
+            'prev_school'=> 'nullable',
         ]);
         
         $input = $request->all();
@@ -133,23 +134,15 @@ class FormController extends Controller
             $input['ff_certificate'] = '';
         }
         
-        $regNum = '';
-        $uniqueId = rand(100,1000);
-        $regNum = "2301" . $uniqueId;
-        $input['reg_id'] = $regNum;
+        $input['reg_id'] = $request->reg_id;
         
         FormInfo::create($input);
-        /*$pdf = PDF::loadView('download-pdf', compact('input'));
-        return $pdf->download('docu.pdf');*/
         return view('download-pdf', compact('input'));
 
         
     }
 
-    /*public function downloadPDF($id){
-        $infos = FormInfo::find($id);
-        
-    }*/
+    
     /**
      * Display the specified resource.
      *

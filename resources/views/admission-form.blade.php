@@ -18,10 +18,19 @@
             <form method="POST" action="{{route('submitform')}}" enctype="multipart/form-data">
                 @csrf
 
+                @php
+                    $heee = DB::table('form_infos')->latest('id')->first();
+                @endphp
+
+                
                 <div class="row">
                     <div class="col-md-12" style="padding-left: 0px;padding-right: 0px;">
                         <h3 class="ad-hd">অনলাইন আবেদন ফর্ম (শিক্ষার্থীর তথ্য)</h3>
-
+            @if(empty($heee->reg_id))    
+                <input type="hidden" class="form-control" id="invoice" name="reg_id" value="230001">
+            @else
+                <input type="hidden" class="form-control" id="invoice" name="reg_id" value="{{$heee->reg_id+1}}">
+            @endif
                     </div>
                 </div>
                 <h3>আবেদনকারীর তথ্যঃ</h3>
@@ -65,165 +74,13 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="mb-3">
-                            <label for="f_name_bangla" class="form-label">পিতার নাম(বাংলা)</label><svg xmlns="http://www.w3.org/2000/svg" width="6" height="6" fill="currentColor" class="bi bi-asterisk" viewBox="0 0 16 16">
-                                <path d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1z" />
-                            </svg>
-                            <input id="f_name_bangla" type="text" class="form-control @error('f_name_bangla') is-invalid @enderror" name="f_name_bangla">
-
-                            @error('f_name_bangla')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="mb-3">
-                            <label for="f_name_english" class="form-label">পিতার নাম(ইংরেজি)</label><svg xmlns="http://www.w3.org/2000/svg" width="6" height="6" fill="currentColor" class="bi bi-asterisk" viewBox="0 0 16 16">
-                                <path d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1z" />
-                            </svg>
-                            <input id="f_name_english" type="text" class="form-control @error('f_name_english') is-invalid @enderror" name="f_name_english" value="{{ old('f_name_english') }}" required autocomplete="father name" autofocus>
-
-                            @error('f_name_english')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="mb-3">
-                            <label for="f_nid_no" class="form-label">পিতার জাতীয় পরিচয় পত্রের নং</label>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="6" height="6" fill="currentColor" class="bi bi-asterisk" viewBox="0 0 16 16">
-                                <path d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1z" />
-                            </svg>
-                            <input id="f_nid_no" type="text" class="form-control" name="f_nid_no">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="mb-3">
-                            <label for="f_prof" class="form-label">পিতার পেশা</label><svg xmlns="http://www.w3.org/2000/svg" width="6" height="6" fill="currentColor" class="bi bi-asterisk" viewBox="0 0 16 16">
-                                <path d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1z" />
-                            </svg>
-                            <input id="f_prof" type="text" class="form-control @error('f_prof') is-invalid @enderror" name="f_prof">
-
-                            @error('f_prof')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="mb-3">
-                            <label for="f_annual_income" class="form-label">বার্ষিক আয়</label>
-                            <input id="f_annual_income" type="text" class="form-control @error('f_annual_income') is-invalid @enderror" name="f_annual_income" value="{{ old('f_income') }}" required autocomplete="father income" autofocus>
-
-                            @error('f_annual_income')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="mb-3">
-                            <label for="f_workplace" class="form-label">কর্মস্থান</label>
-                            <input id="f_workplace" type="text" class="form-control" name="f_workplace">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="mb-3">
-                            <label for="m_name_bangla" class="form-label">মাতার নাম(বাংলা)</label>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="6" height="6" fill="currentColor" class="bi bi-asterisk" viewBox="0 0 16 16">
-                                <path d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1z" />
-                            </svg>
-                            <input id="m_name_bangla" type="m_name_bangla" class="form-control @error('m_name_bangla') is-invalid @enderror" name="m_name_bangla">
-
-                            @error('m_name_bangla')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="mb-3">
-                            <label for="m_name_english" class="form-label">মাতার নাম(ইংরেজি)</label><svg xmlns="http://www.w3.org/2000/svg" width="6" height="6" fill="currentColor" class="bi bi-asterisk" viewBox="0 0 16 16">
-                                <path d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1z" />
-                            </svg>
-                            <input id="m_name_english" type="text" class="form-control @error('m_name_english') is-invalid @enderror" name="m_name_english" value="{{ old('m_name_english') }}" required autocomplete="mothers name" autofocus>
-
-                            @error('m_name_english')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="mb-3">
-                            <label for="m_nid_no" class="form-label">মাতার জাতীয় পরিচয় পত্রের নং</label>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="6" height="6" fill="currentColor" class="bi bi-asterisk" viewBox="0 0 16 16">
-                                <path d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1z" />
-                            </svg>
-                            <input id="m_nid_no" type="text" class="form-control" name="m_nid_no">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="mb-3">
-                            <label for="m_prof" class="form-label">মাতার পেশা</label><svg xmlns="http://www.w3.org/2000/svg" width="6" height="6" fill="currentColor" class="bi bi-asterisk" viewBox="0 0 16 16">
-                                <path d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1z" />
-                            </svg>
-                            <input id="m_prof" type="text" class="form-control @error('m_prof') is-invalid @enderror" name="m_prof">
-
-                            @error('m_prof')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="mb-3">
-                            <label for="m_annual_income" class="form-label">বার্ষিক আয়</label>
-                            <input id="m_annual_income" type="text" class="form-control @error('m_annual_income') is-invalid @enderror" name="m_annual_income" value="{{ old('m_annual_income') }}" required autocomplete="mother income" autofocus>
-
-                            @error('m_annual_income')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="mb-3">
-                            <label for="m_workplace" class="form-label">কর্মস্থান(কর্মজীবি হলে)</label>
-                            <input id="m_workplace" type="text" class="form-control" name="m_workplace">
-                        </div>
-                    </div>
-                </div>
-
                 <div class="row">
                     <div class="col-md-4">
                         <div class="mb-3">
                             <label for="birth_date" class="form-label">জন্ম তারিখ</label><svg xmlns="http://www.w3.org/2000/svg" width="6" height="6" fill="currentColor" class="bi bi-asterisk" viewBox="0 0 16 16">
                                 <path d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1z" />
                             </svg>
-                            <input id="birth_date" type="text" class="form-control @error('birth_date') is-invalid @enderror" name="birth_date">
+                            <input id="birth_date" type="date" class="form-control @error('birth_date') is-invalid @enderror" name="birth_date">
 
                             @error('birth_date')
                             <span class="invalid-feedback" role="alert">
@@ -266,9 +123,9 @@
                             </svg>
                             <select class="form-control" aria-label="Defaul" name="gender">
                                 <option selected value="">Select Gender</option>
-                                <option value="male" name="male">Male</option>
-                                <option value="female" name="female">Female</option>
-                                <option value="other" name="other">Other</option>
+                                <option value="Male" name="male">Male</option>
+                                <option value="Female" name="female">Female</option>
+                                <option value="Other" name="other">Other</option>
                             </select>
                             @error('gender')
                             <span class="invalid-feedback" role="alert">
@@ -284,10 +141,10 @@
                             </svg>
                             <select class="form-control" aria-label="Defaul" name="religion">
                                 <option selected value="">Select Religion</option>
-                                <option value="islam" name="islam">Islam</option>
-                                <option value="hindu" name="hindu">Hindu</option>
-                                <option value="buddhist" name="buddhist">Buddhist</option>
-                                <option value="christian" name="christian">Christian</option>
+                                <option value="Islam" name="islam">Islam</option>
+                                <option value="Hindu" name="hindu">Hindu</option>
+                                <option value="Buddhist" name="buddhist">Buddhist</option>
+                                <option value="Christian" name="christian">Christian</option>
                             </select>
 
                             @error('religion')
@@ -301,6 +158,156 @@
                         <div class="mb-3">
                             <label for="blood_group" class="form-label">রক্তের গ্রুপ</label>
                             <input id="blood_group" type="text" class="form-control" name="blood_group">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="f_name_bangla" class="form-label">পিতা/অভিভাবক এর নাম (বাংলা)</label><svg xmlns="http://www.w3.org/2000/svg" width="6" height="6" fill="currentColor" class="bi bi-asterisk" viewBox="0 0 16 16">
+                                <path d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1z" />
+                            </svg>
+                            <input id="f_name_bangla" type="text" class="form-control @error('f_name_bangla') is-invalid @enderror" name="f_name_bangla">
+
+                            @error('f_name_bangla')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="f_name_english" class="form-label">পিতা/অভিভাবক এর নাম (ইংরেজি)</label><svg xmlns="http://www.w3.org/2000/svg" width="6" height="6" fill="currentColor" class="bi bi-asterisk" viewBox="0 0 16 16">
+                                <path d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1z" />
+                            </svg>
+                            <input id="f_name_english" type="text" class="form-control @error('f_name_english') is-invalid @enderror" name="f_name_english" value="{{ old('f_name_english') }}" required autocomplete="father name" autofocus>
+
+                            @error('f_name_english')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="f_nid_no" class="form-label">পিতা/অভিভাবক এর জাতীয় পরিচয়পত্র/জন্মনিবন্ধন নং</label>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="6" height="6" fill="currentColor" class="bi bi-asterisk" viewBox="0 0 16 16">
+                                <path d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1z" />
+                            </svg>
+                            <input id="f_nid_no" type="text" class="form-control" name="f_nid_no">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="f_prof" class="form-label">পিতা/অভিভাবক এর পেশা</label><svg xmlns="http://www.w3.org/2000/svg" width="6" height="6" fill="currentColor" class="bi bi-asterisk" viewBox="0 0 16 16">
+                                <path d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1z" />
+                            </svg>
+                            <input id="f_prof" type="text" class="form-control @error('f_prof') is-invalid @enderror" name="f_prof">
+
+                            @error('f_prof')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="f_annual_income" class="form-label">পিতা/অভিভাবক এর বার্ষিক আয়</label>
+                            <input id="f_annual_income" type="text" class="form-control @error('f_annual_income') is-invalid @enderror" name="f_annual_income" value="{{ old('f_income') }}" autocomplete="father income" autofocus>
+
+                            @error('f_annual_income')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="f_workplace" class="form-label">পিতা/অভিভাবক এর কর্মস্থান</label>
+                            <input id="f_workplace" type="text" class="form-control" name="f_workplace">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="m_name_bangla" class="form-label">মাতার নাম(বাংলা)</label>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="6" height="6" fill="currentColor" class="bi bi-asterisk" viewBox="0 0 16 16">
+                                <path d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1z" />
+                            </svg>
+                            <input id="m_name_bangla" type="m_name_bangla" class="form-control @error('m_name_bangla') is-invalid @enderror" name="m_name_bangla">
+
+                            @error('m_name_bangla')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="m_name_english" class="form-label">মাতার নাম(ইংরেজি)</label><svg xmlns="http://www.w3.org/2000/svg" width="6" height="6" fill="currentColor" class="bi bi-asterisk" viewBox="0 0 16 16">
+                                <path d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1z" />
+                            </svg>
+                            <input id="m_name_english" type="text" class="form-control @error('m_name_english') is-invalid @enderror" name="m_name_english" value="{{ old('m_name_english') }}" required autocomplete="mothers name" autofocus>
+
+                            @error('m_name_english')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="m_nid_no" class="form-label">মাতার জাতীয় পরিচয়পত্র/জন্মনিবন্ধন নং</label>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="6" height="6" fill="currentColor" class="bi bi-asterisk" viewBox="0 0 16 16">
+                                <path d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1z" />
+                            </svg>
+                            <input id="m_nid_no" type="text" class="form-control" name="m_nid_no">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="m_prof" class="form-label">মাতার পেশা</label><svg xmlns="http://www.w3.org/2000/svg" width="6" height="6" fill="currentColor" class="bi bi-asterisk" viewBox="0 0 16 16">
+                                <path d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1z" />
+                            </svg>
+                            <input id="m_prof" type="text" class="form-control @error('m_prof') is-invalid @enderror" name="m_prof">
+
+                            @error('m_prof')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="m_annual_income" class="form-label">বার্ষিক আয়</label>
+                            <input id="m_annual_income" type="text" class="form-control @error('m_annual_income') is-invalid @enderror" name="m_annual_income" value="{{ old('m_annual_income') }}" autocomplete="mother income" autofocus>
+
+                            @error('m_annual_income')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="m_workplace" class="form-label">কর্মস্থান(কর্মজীবি হলে)</label>
+                            <input id="m_workplace" type="text" class="form-control" name="m_workplace">
                         </div>
                     </div>
                 </div>
@@ -398,7 +405,7 @@
                     <div class="col-md-4">
                         <div class="mb-3">
                             <label for="class_to_admit" class="form-label">যে শ্রেণিতে ভর্তি হতে ইচ্ছুক</label>
-                            <input id="class_to_admit" type="text" class="form-control @error('class_to_admit') is-invalid @enderror" name="class_to_admit" value="{{ old('class_to_admit') }}" required autocomplete="Desired class to admit" autofocus>
+                            <input id="class_to_admit" type="text" class="form-control @error('class_to_admit') is-invalid @enderror" name="class_to_admit" value="শিশু শ্রেণী" required autocomplete="Desired class to admit" autofocus>
 
                             @error('class_to_admit')
                             <span class="invalid-feedback" role="alert">
@@ -420,7 +427,8 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="mb-3">
-                            <label for="category_id" class="form-label">ক্যাটাগরী</label><svg xmlns="http://www.w3.org/2000/svg" width="6" height="6" fill="currentColor" class="bi bi-asterisk" viewBox="0 0 16 16">
+                            <label for="category_id" class="form-label">ক্যাটাগরী</label>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="6" height="6" fill="currentColor" class="bi bi-asterisk" viewBox="0 0 16 16">
                                 <path d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1z" />
                             </svg>
                             <select class="form-control" id="mySelectBox" aria-label="Defaul" name="category">
@@ -495,13 +503,13 @@
                         </div>
                     </div>
 
-                    <div>বিদ্যালয়ে কর্মরত শিক্ষক/কর্মচারী/ ম্যানেজিং কমিটির সদস্যের সন্তান কি না? &nbsp; &nbsp;
+                    <div>বিদ্যালয়ে কর্মরত শিক্ষক/কর্মচারীর সন্তান কি না? &nbsp; &nbsp;
                         <label>
                             <input type="radio" name="isson" value="yes"> হ্যাঁ</label>
                         <label>
-                        <label>
-                            <input type="radio" name="isson" value="no"> না</label>
-                        <label>
+                            <label>
+                                <input type="radio" name="isson" value="no"> না</label>
+                            <label>
                     </div>
                     <div class="selectt yes">
                         <div class="row">
@@ -519,8 +527,8 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="mb-3">
-                                    <label for="school_empl_pay_code" class="form-label">পে-কোড</label>
-                                    <input id="school_empl_pay_code" type="text" class="form-control" name="school_empl_pay_code">
+                                    <!-- <label for="school_empl_pay_code" class="form-label">পে-কোড</label> -->
+                                    <input id="school_empl_pay_code" type="hidden" value="0" class="form-control" name="school_empl_pay_code">
                                 </div>
                             </div>
 
@@ -592,14 +600,16 @@
                     <br />
                     <br />
                     <label>
-                        <input type="radio" checked  name="colorRadio" value="agreement"> আমি, এতদ্বারা ঘোষণা করছি যে, উপরে উল্লিখিত তথ্য ও ছবি সঠিক। আমার দ্বারা প্রদত্ত কোন তথ্য মিথ্যা প্রমাণিত হলে, ইনস্টিটিউট আমার ভর্তি বাতিল করার অধিকার সংরক্ষণ করে। আমি ইনস্টিটিউটের নিয়মকানুন মেনে চলার পাশাপাশি প্রয়োজনীয় সমস্ত ফি দিতে বাধ্য থাকব।
+                        <input type="radio" checked name="colorRadio" value="agreement" class="mt-3"> আমি, এতদ্বারা ঘোষণা করছি যে, উপরে উল্লিখিত তথ্য ও ছবি সঠিক। আমার দ্বারা প্রদত্ত কোন তথ্য মিথ্যা প্রমাণিত হলে, ইনস্টিটিউট আমার ভর্তি বাতিল করার অধিকার সংরক্ষণ করে। আমি ইনস্টিটিউটের নিয়মকানুন মেনে চলার পাশাপাশি প্রয়োজনীয় সমস্ত ফি দিতে বাধ্য থাকব।
                     </label>
                     <div class="row mb-0 mt-2">
-                        <div class="col-md-6 text-center">
-                            <button type="submit" class="btn btn-primary">
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4 text-center">
+                            <button type="submit" class="btn btn-success w-100">
                                 Save
                             </button>
                         </div>
+                        <div class="col-md-4"></div>
                     </div>
                 </div>
             </form>

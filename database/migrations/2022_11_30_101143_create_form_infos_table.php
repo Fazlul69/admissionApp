@@ -35,7 +35,7 @@ return new class extends Migration
             $table->string('nationality');
             $table->string('gender');
             $table->string('religion');
-            $table->string('blood_group');
+            $table->string('blood_group')->nullable();
             $table->string('present_address');
             $table->string('pr_address_thana');
             $table->string('pr_address_subdist');
@@ -46,7 +46,7 @@ return new class extends Migration
             $table->string('perm_address_dist');
             $table->string('session_year');
             $table->string('class_to_admit');
-            $table->string('prev_school');
+            $table->string('prev_school')->nullable();
             $table->string('parent_working_here_name')->nullable();
             $table->string('parent_working_here_dept')->nullable();
             $table->string('parent_working_here_pay_code')->nullable();
